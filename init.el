@@ -11,7 +11,7 @@
 
 ;; Make sure your required packages are installed on startup.
 (defvar packages-required-at-startup
-  '(haskell-mode lsp lsp-haskell go-mode lsp-mode use-package))
+  '(haskell-mode lsp lsp-haskell go-mode lsp-mode lsp-ui use-package flycheck iedit))
 
 (defun packages-required-at-startup-are-installed-p ()
   (loop for p in package-required-at-startup
@@ -26,6 +26,10 @@
 
 ;; revert buffers automatically when underlying files are changed externally
 (global-auto-revert-mode t)
+
+;; lsp-mode suggestions:  https://emacs-lsp.github.io/lsp-mode/page/performance/
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
 
 ;; Font size
 (global-set-key (kbd "C-+") 'text-scale-increase)
@@ -43,9 +47,60 @@
 (eval-when-compile
   (require 'use-package))
 
+(use-package use-package-ensure-system-package
+  :ensure t)
+
+(use-package use-package-chords
+  :ensure t
+  :config (key-chord-mode 1))
+
+;; lsp-ui settings
+;; customization options:  https://emacs-lsp.github.io/lsp-ui/
+(use-package lsp-ui
+  :ensure t)
+
+;; flycheck settings
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode))
+
+;; tree-sitter settings
+(use-package tree-sitter
+  :ensure t
+  :init
+  (global-tree-sitter-mode))
+
+(use-package tree-sitter-langs
+  :after (tree-sitter)
+  :ensure t)
+
+(use-package tree-sitter-hl
+  :after (tree-sitter)  
+  :ensure t
+  :hook (tree-sitter-after-on))
+
+(use-package tree-sitter-debug
+  :after (tree-sitter)  
+  :ensure t)
+
+(use-package tree-sitter-query
+  :after (tree-sitter)  
+  :ensure t)
+
+;; iedit settings
+(use-package iedit
+  :ensure t)
+
 ;; Haskell mode
-(require 'haskell-mode)			 
+(use-package haskell-mode
+  :ensure t
+  :hook (haskell-mode tree-sitter-hl-mode))
+
 (require 'lsp)
+(setq lsp-idle-delay 0.500)
+(setq lsp-log-io nil)
+
 (require 'lsp-haskell)
 ;; Hooks so haskell and literate haskell major modes trigger LSP setup
 (add-hook 'haskell-mode-hook #'lsp)
@@ -66,3 +121,10 @@
 (setq lsp-go-links-in-hover t)
 ;; (setq lsp-go-use-gofumpt nil)
 ;;(setq lsp-go-import-shortcut "Both")
+
+
+;; Packages to consider:
+;; treemacs, comint, projectile, magit, ivy, ido, parens, diminish, rainbow-mode, dash-at-point,
+
+;; Need packages to manage:
+;; html, web, emacs lisp, dockerfiles
