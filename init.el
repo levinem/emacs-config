@@ -112,16 +112,22 @@
 (add-hook 'go-mode-hook #'lsp-deferred)
 ;; Set up before-save hooks to format buffer and add/delete imports.
 ;; Make sure you don't have other gofmt/goimports hooks enabled.
-(defun lsp-go-install-save-hooks ()
+(defun lsp-install-save-hooks ()
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
-(add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
+(add-hook 'go-mode-hook #'lsp-install-save-hooks)
 ;; All the available customizations: https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-go.el 
 (setq lsp-go-hover-kind "FullDocumentation")
 (setq lsp-go-links-in-hover t)
 ;; (setq lsp-go-use-gofumpt nil)
 ;;(setq lsp-go-import-shortcut "Both")
 
+;; Elm mode
+(use-package elm-mode
+  :ensure t
+  :hook (elm-mode tree-sitter-hl-mode)
+  :hook (elm-mode lsp-deferred)
+  :hook (elm-mode lsp-install-save-hooks))
 
 ;; Packages to consider:
 ;; treemacs, comint, projectile, magit, ivy, ido, parens, diminish, rainbow-mode, dash-at-point,
