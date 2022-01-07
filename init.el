@@ -127,7 +127,7 @@
   :ensure t
   :hook (elm-mode tree-sitter-hl-mode)
   :hook (elm-mode lsp-deferred)
-  :hook (elm-mode lsp-install-save-hooks))
+  :hook (elm-mode elm-format-on-save-mode))
 
 ;; Packages to consider:
 ;; treemacs, comint, projectile, magit, ivy, ido, parens, diminish, rainbow-mode, dash-at-point,
