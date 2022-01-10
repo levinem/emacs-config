@@ -7,16 +7,16 @@
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
-(package-install-selected-packages)
+;;(package-install-selected-packages)
 
 ;; Make sure your required packages are installed on startup.
 (defvar packages-required-at-startup
-  '(haskell-mode lsp lsp-haskell go-mode lsp-mode lsp-ui use-package flycheck iedit))
+  '(haskell-mode lsp-mode lsp-haskell go-mode lsp-ui use-package flycheck iedit elm-mode))
 
 (defun packages-required-at-startup-are-installed-p ()
-  (loop for p in package-required-at-startup
-	when (not (package-installed-p p)) do (return nil)
-	finally (return t)))
+  (cl-loop for p in packages-required-at-startup
+	when (not (package-installed-p p)) do (cl-return nil)
+	finally (cl-return t)))
 
 (unless (packages-required-at-startup-are-installed-p)
   (package-refresh-contents)
