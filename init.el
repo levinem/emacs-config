@@ -11,7 +11,7 @@
 
 ;; Make sure your required packages are installed on startup.
 (defvar packages-required-at-startup
-  '(haskell-mode lsp-mode lsp-haskell go-mode lsp-ui use-package flycheck iedit elm-mode))
+  '(haskell-mode lsp-mode lsp-haskell go-mode lsp-ui use-package flycheck iedit elm-mode tree-sitter tree-sitter-langs))
 
 (defun packages-required-at-startup-are-installed-p ()
   (cl-loop for p in packages-required-at-startup
@@ -71,22 +71,24 @@
   :init
   (global-tree-sitter-mode))
 
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
 (use-package tree-sitter-langs
   :after (tree-sitter)
   :ensure t)
 
-(use-package tree-sitter-hl
-  :after (tree-sitter)  
-  :ensure t
-  :hook (tree-sitter-after-on))
+;; (use-package tree-sitter-hl
+;;   :after (tree-sitter)  
+;;   :ensure t
+;;   :hook (tree-sitter-after-on))
 
-(use-package tree-sitter-debug
-  :after (tree-sitter)  
-  :ensure t)
+;; (use-package tree-sitter-debug
+;;   :after (tree-sitter)  
+;;   :ensure t)
 
-(use-package tree-sitter-query
-  :after (tree-sitter)  
-  :ensure t)
+;; (use-package tree-sitter-query
+;;   :after (tree-sitter)  
+;;   :ensure t)
 
 ;; iedit settings
 (use-package iedit
@@ -134,3 +136,17 @@
 
 ;; Need packages to manage:
 ;; html, web, emacs lisp, dockerfiles
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (tree-sitter-query tree-sitter-debug tree-sitter-hl tree-sitter-langs tree-sitter use-package-chords use-package-ensure-system-package iedit flycheck lsp-ui go-mode lsp-haskell lsp-mode use-package haskell-mode elm-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
