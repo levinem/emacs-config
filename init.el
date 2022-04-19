@@ -94,19 +94,19 @@
 (use-package iedit
   :ensure t)
 
-;; Haskell mode
-(use-package haskell-mode
-  :ensure t
-  :hook (haskell-mode tree-sitter-hl-mode))
+;; ;; Haskell mode
+;; (use-package haskell-mode
+;;   :ensure t
+;;   :hook (haskell-mode tree-sitter-hl-mode))
 
 (require 'lsp)
 (setq lsp-idle-delay 0.500)
 (setq lsp-log-io nil)
 
-(require 'lsp-haskell)
-;; Hooks so haskell and literate haskell major modes trigger LSP setup
-(add-hook 'haskell-mode-hook #'lsp)
-(add-hook 'haskell-literate-mode-hook #'lsp)
+;; (require 'lsp-haskell)
+;; ;; Hooks so haskell and literate haskell major modes trigger LSP setup
+;; (add-hook 'haskell-mode-hook #'lsp)
+;; (add-hook 'haskell-literate-mode-hook #'lsp)
 
 ;; Go mode
 (require 'go-mode)
@@ -125,11 +125,20 @@
 ;;(setq lsp-go-import-shortcut "Both")
 
 ;; Elm mode
-(use-package elm-mode
-  :ensure t
-  :hook (elm-mode tree-sitter-hl-mode)
-  :hook (elm-mode lsp-deferred)
-  :hook (elm-mode elm-format-on-save-mode))
+(add-to-list 'auto-mode-alist '("\\.elm\\'" . elm-mode))
+(add-hook 'elm-mode-hook 'elm-indent-simple-mode)
+(add-hook 'elm-mode-hook 'lsp-deferred-mode)
+(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
+;; (use-package elm-mode
+;;   :ensure t
+;;   ;;:mode ("\\.elm\\'" . elm-mode)
+;;   ;; :hook (elm-mode tree-sitter-hl-mode)
+;;   :hook (elm-mode lsp-deferred)
+;;   :hook (elm-mode elm-format-on-save-mode))
+ 
+
+;;(add-to-list 'company-backends 'company-elm)
+
 
 ;; Packages to consider:
 ;; treemacs, comint, projectile, magit, ivy, ido, parens, diminish, rainbow-mode, dash-at-point,
