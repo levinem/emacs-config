@@ -127,8 +127,14 @@
 ;; Elm mode
 (add-to-list 'auto-mode-alist '("\\.elm\\'" . elm-mode))
 (add-hook 'elm-mode-hook 'elm-indent-simple-mode)
-(add-hook 'elm-mode-hook 'lsp-deferred-mode)
-(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
+;;(add-hook 'elm-mode-hook 'lsp-deferred-mode)
+;;(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
+(add-hook 'after-save-hook 'elm-format-on-save-mode)
+;;(add-hook 'after-save-hook 'untabify)
+;; (add-hook 'elm-mode-hook 
+;;           (lambda () 
+;;             (add-hook 'after-save-hook 'elm-format-on-save-mode nil 't))
+
 ;; (use-package elm-mode
 ;;   :ensure t
 ;;   ;;:mode ("\\.elm\\'" . elm-mode)
