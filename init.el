@@ -130,6 +130,12 @@
 ;;(add-hook 'elm-mode-hook 'lsp-deferred-mode)
 ;;(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
 (add-hook 'after-save-hook 'elm-format-on-save-mode)
+(setq                                                                       
+ lsp-eldoc-render-all t                                                     
+ lsp-ui-doc-enable nil                                                      
+ lsp-ui-sideline-enable nil                                                 
+ lsp-prefer-capf t                                                          
+ lsp-idle-delay 0.2)
 ;;(add-hook 'after-save-hook 'untabify)
 ;; (add-hook 'elm-mode-hook 
 ;;           (lambda () 
@@ -165,3 +171,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+ ;; DAP mode: https://emacs-lsp.github.io/dap-mode/
