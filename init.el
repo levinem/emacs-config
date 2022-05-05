@@ -130,6 +130,8 @@
 ;;(add-hook 'elm-mode-hook 'lsp-deferred-mode)
 ;;(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
 (add-hook 'after-save-hook 'elm-format-on-save-mode)
+(when (eq (print major-mode) "elm-mode")
+  (add-hook 'after-save-hook 'untabify))
 (setq                                                                       
  lsp-eldoc-render-all t                                                     
  lsp-ui-doc-enable nil                                                      
