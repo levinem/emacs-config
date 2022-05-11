@@ -11,7 +11,7 @@
 
 ;; Make sure your required packages are installed on startup.
 (defvar packages-required-at-startup
-  '(haskell-mode lsp-mode lsp-haskell go-mode lsp-ui use-package flycheck iedit elm-mode tree-sitter tree-sitter-langs))
+  '(haskell-mode lsp-mode lsp-haskell go-mode lsp-ui use-package flycheck iedit elm-mode tree-sitter tree-sitter-langs psc-ide))
 
 (defun packages-required-at-startup-are-installed-p ()
   (cl-loop for p in packages-required-at-startup
@@ -151,6 +151,17 @@
 ;;   :hook (elm-mode elm-format-on-save-mode))
  
 
+;; PureScript mode
+(require 'psc-ide)
+(add-to-list 'auto-mode-alist '("\\.purs\\'" . psc-ide-mode))
+(add-hook 'purescript-mode-hook
+  (lambda ()
+    (psc-ide-mode)
+    (company-mode)
+    (flycheck-mode)
+    (turn-on-purescript-indentation)))
+(customize-set-variable 'psc-ide-rebuild-on-save t)
+
 ;;(add-to-list 'company-backends 'company-elm)
 
 
@@ -165,8 +176,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   (quote
-    (tree-sitter-query tree-sitter-debug tree-sitter-hl tree-sitter-langs tree-sitter use-package-chords use-package-ensure-system-package iedit flycheck lsp-ui go-mode lsp-haskell lsp-mode use-package haskell-mode elm-mode))))
+   '(psc-ide purescript-mode tree-sitter-query tree-sitter-debug tree-sitter-hl tree-sitter-langs tree-sitter use-package-chords use-package-ensure-system-package iedit flycheck lsp-ui go-mode lsp-haskell lsp-mode use-package haskell-mode elm-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
