@@ -127,17 +127,35 @@
 ;; Elm mode
 (add-to-list 'auto-mode-alist '("\\.elm\\'" . elm-mode))
 (add-hook 'elm-mode-hook 'elm-indent-simple-mode)
+
 ;;(add-hook 'elm-mode-hook 'lsp-deferred-mode)
 ;;(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
-(add-hook 'after-save-hook 'elm-format-on-save-mode)
-(when (eq (print major-mode) "elm-mode")
-  (add-hook 'after-save-hook 'untabify))
-(setq                                                                       
- lsp-eldoc-render-all t                                                     
- lsp-ui-doc-enable nil                                                      
- lsp-ui-sideline-enable nil                                                 
- lsp-prefer-capf t                                                          
- lsp-idle-delay 0.2)
+(add-hook 'elm-mode-hook (lambda ()
+			   (message "Starting the elm-language-server in the background")
+ 			   (shell-command "elm-language-server &")))
+;;(add-hook 'elm-mode-hook (lambda ()
+;; 			   (add-hook 'after-save-hook 'elm-format-on-save-mode)))
+(add-hook 'elm-mode-hook (lambda ()
+			   (message "Adding the untabify after save hook")
+			   (add-hook 'after-save-hook (lambda ()
+							(message "Starting to untabify")
+							(untabify (point-min) (point-max)) nil t))))
+(add-hook 'elm-mode-hook (lambda ()
+			   (message "Resetting the C-c C-f keybinding")
+			   (local-set-key (kbd "C-c C-f") #'elm-format-buffer)))
+;; (add-hook 'elm-mode-hook (lambda ()
+;; 			   (message "Adding the elm compile on save hook")
+;; 			   (add-hook 'after-save-hook (lambda ()
+;; 							(message "Running elm make")
+;; 							(elm-compile-buffer)))))
+;;(add-hook 'elm-mode-hook 'lsp-mode)
+;; (add-hook 'elm-mode-hook (lambda () lsp-mode))
+;; (setq                                                                       
+;;  lsp-eldoc-render-all t                                                     
+;;  lsp-ui-doc-enable nil                                                      
+;;  lsp-ui-sideline-enable nil                                                 
+;;  lsp-prefer-capf t                                                          
+;;  lsp-idle-delay 0.2)
 ;;(add-hook 'after-save-hook 'untabify)
 ;; (add-hook 'elm-mode-hook 
 ;;           (lambda () 
@@ -153,15 +171,18 @@
 
 ;; PureScript mode
 (require 'psc-ide)
-(add-to-list 'auto-mode-alist '("\\.purs\\'" . psc-ide-mode))
+(add-to-list 'auto-mode-alist '("\\.purs\\'" . purescript-mode))
+(add-hook 'purescript-mode-hook (lambda ()
+			   (message "Starting the purescript-language-server")
+			   (shell-command "purescript-language-server")))
 (add-hook 'purescript-mode-hook
   (lambda ()
     (psc-ide-mode)
     (company-mode)
     (flycheck-mode)
+    (lsp-mode)
     (turn-on-purescript-indentation)))
 (customize-set-variable 'psc-ide-rebuild-on-save t)
-
 ;;(add-to-list 'company-backends 'company-elm)
 
 
