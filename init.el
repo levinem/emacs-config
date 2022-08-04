@@ -9,9 +9,12 @@
   (package-refresh-contents))
 ;;(package-install-selected-packages)
 
+(setq gc-cons-threshold (* 100 1024 1024)
+      read-process-output-max (* 1024 1024))
+
 ;; Make sure your required packages are installed on startup.
 (defvar packages-required-at-startup
-  '(haskell-mode lsp-mode lsp-haskell go-mode lsp-ui use-package flycheck iedit elm-mode tree-sitter tree-sitter-langs psc-ide))
+  '(haskell-mode lsp-mode lsp-haskell go-mode lsp-ui use-package flycheck iedit elm-mode tree-sitter tree-sitter-langs psc-ide dart-mode lsp-dart lsp-treemacs))
 
 (defun packages-required-at-startup-are-installed-p ()
   (cl-loop for p in packages-required-at-startup
@@ -184,6 +187,12 @@
 (customize-set-variable 'psc-ide-rebuild-on-save t)
 ;;(add-to-list 'company-backends 'company-elm)
 
+
+;; Dart mode
+(add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
+(add-hook 'dart-mode-hook 'lsp)
+(setq lsp-dart-sdk-dir "/home/mlev/snap/flutter/common/flutter/bin/cache/dart-sdk")
+(setq lsp-dart-flutter-sdk-dir "/home/mlev/snap/flutter/common/flutter")
 
 ;; Packages to consider:
 ;; treemacs, comint, projectile, magit, ivy, ido, parens, diminish, rainbow-mode, dash-at-point,
