@@ -1,3 +1,8 @@
+;; Emacs startup screen
+(setq inhibit-startup-screen t)
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+
 ;; Disable tls due to emacs bug to download from melpa
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
@@ -33,6 +38,15 @@
 ;; lsp-mode suggestions:  https://emacs-lsp.github.io/lsp-mode/page/performance/
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
+;; turning off lsp-mode features:  https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+(setq lsp-ui-doc-enable nil)
+(setq lsp-ui-doc-show-with-cursor nil)
+(setq lsp-ui-doc-show-with-mouse nil)
+(setq lsp-lens-enable nil)
+(setq lsp-ui-sideline-enable nil)
+(setq lsp-ui-sideline-show-code-actions nil)
+(setq lsp-ui-sideline-show-hover nil)
+(setq lsp-ui-sideline-show-diagnostics nil)
 
 ;; Font size
 (global-set-key (kbd "C-+") 'text-scale-increase)
