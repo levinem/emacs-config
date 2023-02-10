@@ -206,6 +206,9 @@
 (add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
 (add-hook 'dart-mode-hook 'lsp)
 (add-hook 'dart-mode-hook 'electric-pair-mode)
+(defun dart-lsp-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t))
+(add-hook 'dart-mode-hook #'dart-lsp-install-save-hooks)
 (setq lsp-dart-sdk-dir "/home/mlev/snap/flutter/common/flutter/bin/cache/dart-sdk")
 (setq lsp-dart-flutter-sdk-dir "/home/mlev/snap/flutter/common/flutter")
 
