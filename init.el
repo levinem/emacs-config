@@ -56,6 +56,10 @@
 (global-set-key (kbd "C-x O") (lambda ()
                                 (interactive)
                                 (other-window -1))) ;; back one
+;; Buffer movement
+;; move cursor by camelCase
+;; 1 for on, 0 for off
+(global-subword-mode 1)
 
 ;; File matching with major modes
 ;;(add-to-list 'auto-mode-alist '("\\.hs\\'" . haskell-mode
@@ -223,7 +227,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(psc-ide purescript-mode tree-sitter-query tree-sitter-debug tree-sitter-hl tree-sitter-langs tree-sitter use-package-chords use-package-ensure-system-package iedit flycheck lsp-ui go-mode lsp-haskell lsp-mode use-package haskell-mode elm-mode)))
+   (quote
+    (psc-ide purescript-mode tree-sitter-query tree-sitter-debug tree-sitter-hl tree-sitter-langs tree-sitter use-package-chords use-package-ensure-system-package iedit flycheck lsp-ui go-mode lsp-haskell lsp-mode use-package haskell-mode elm-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
