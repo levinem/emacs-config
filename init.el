@@ -19,7 +19,7 @@
 
 ;; Make sure your required packages are installed on startup.
 (defvar packages-required-at-startup
-  '(haskell-mode lsp-mode lsp-haskell go-mode lsp-ui use-package flycheck iedit elm-mode tree-sitter tree-sitter-langs psc-ide dart-mode lsp-dart lsp-treemacs))
+  '(haskell-mode lsp-mode lsp-haskell go-mode lsp-ui use-package flycheck iedit elm-mode tree-sitter tree-sitter-langs psc-ide dart-mode lsp-dart lsp-treemacs protobuf-mode))
 
 (defun packages-required-at-startup-are-installed-p ()
   (cl-loop for p in packages-required-at-startup
@@ -218,6 +218,14 @@
 (add-hook 'dart-mode-hook #'dart-lsp-install-save-hooks)
 (setq lsp-dart-sdk-dir "/home/mlev/snap/flutter/common/flutter/bin/cache/dart-sdk")
 (setq lsp-dart-flutter-sdk-dir "/home/mlev/snap/flutter/common/flutter")
+
+;; Protobuf mode
+(add-to-list 'auto-mode-alist '("\\.proto\\'" . protobuf-mode))
+(add-hook 'protobuf-mode-hook 'lsp)
+(add-hook 'protobuf-mode-hook 'electric-pair-mode)
+;;(add-hook 'protobuf-mode-hook
+;;     (lambda () (c-add-style "my-style" my-protobuf-style t)))
+
 
 ;; Packages to consider:
 ;; treemacs, comint, projectile, magit, ivy, ido, parens, diminish, rainbow-mode, dash-at-point,
