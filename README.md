@@ -22,3 +22,8 @@ My Emacs configuration on top of Prelude
 ## Prerequisites
 
 1. wl-clipboard (for clipboard support using wayland)
+
+## To Dos
+
+1. allow prelude to read personal/preload directories, can use file-directory-p and https://www.gnu.org/software/emacs/manual/html_node/elisp/Contents-of-Directories.html
+1. for autocomplete, try:  irony, company-irony, rtags, cpputils-cmake, cmake-ide
