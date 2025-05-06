@@ -4,8 +4,7 @@ My Emacs configuration on top of Prelude
 ## prelude-modules to uncomment:
 
 1. prelude-vertico
-1. prelude-helm
-1. prelude-helm-everywhere
+1. prelude-ivy
 1. prelude-company
 1. prelude-js
 1. prelude-latex
@@ -22,6 +21,8 @@ My Emacs configuration on top of Prelude
 ## Prerequisites
 
 1. wl-clipboard (for clipboard support using wayland)
+1. global (for GNU Global support)
+1. ggtags-mode (Emacs package)
 
 ## To Dos
 
